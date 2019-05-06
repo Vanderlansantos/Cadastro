@@ -15,9 +15,13 @@ namespace Cadastro.Infra.Contexto
 
         public IDbConnection GetCon()
         {
-            return _Db = new SqlConnection(@"server=scorpion\sqlexpress01; database =pessoa; user id=root; password=123;");
-            //return _Db = new SqlConnection(@"server=F-L303; database =Pessoa; user id=sa; password=123;");
-            //return _Db = new SqlConnection(@"server=DESKTOP-SFONDKR; database=Pessoa; user id=sa; password=123;");
+
+
+
+            //String de conexão com sql server
+
+            return _Db = new SqlConnection(@"server=(Servidor); database=pessoa; user id=(usuario); password=(senha);");
+            //return _Db = new SqlConnection(@"Data Source=(Servidor); Initial Catalog=pessoa; Integrated Security = SSPI;");
 
         }
     }
