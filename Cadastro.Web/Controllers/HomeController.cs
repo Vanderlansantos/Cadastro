@@ -1,10 +1,8 @@
 ﻿using Cadastro.Dominio.Comandos.Entrada;
 using Cadastro.Dominio.Comandos.Manipuladores;
 using Cadastro.Dominio.Comandos.Resultados;
-using Cadastro.Dominio.Entidade;
 using Cadastro.Dominio.Repositorios;
 using System;
-using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace Cadastro.Web.Controllers
