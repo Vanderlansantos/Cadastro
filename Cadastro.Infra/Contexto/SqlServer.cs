@@ -18,7 +18,7 @@ namespace Cadastro.Infra.Contexto
 
 
 
-            //String de conexão com sql server
+            //String de conexão com sql Server
 
             return _Db = new SqlConnection(@"server=(Servidor); database=pessoa; user id=(usuario); password=(senha);");
             //return _Db = new SqlConnection(@"Data Source=(Servidor); Initial Catalog=pessoa; Integrated Security = SSPI;");
