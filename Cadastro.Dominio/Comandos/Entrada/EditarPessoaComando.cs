@@ -8,8 +8,7 @@ namespace Cadastro.Dominio.Comandos.Entrada
         public Guid Id { get; set; }
         public string Nome { get; set; }
         public string EnderecoEmail { get; set; }
-        public string Documento { get; set; }
-        public string Telefone { get; private set; }
+        public string Telefone { get; set; }
 
     }
 }

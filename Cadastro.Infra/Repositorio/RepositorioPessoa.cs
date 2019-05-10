@@ -1,14 +1,11 @@
-﻿using Cadastro.Dominio.Comandos.Entrada;
-using Cadastro.Dominio.Entidade;
+﻿using Cadastro.Dominio.Entidade;
 using Cadastro.Dominio.ObjetoDeValor;
 using Cadastro.Dominio.Repositorios;
 using Cadastro.Infra.Contexto;
 using Dapper;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
-using System.Xml.Linq;
 
 namespace Cadastro.Infra.Repositorio
 {
@@ -82,8 +79,7 @@ namespace Cadastro.Infra.Repositorio
         {
             string sql = @"UPDATE [dbo].[Pessoa]" +
                            " SET Nome=@Nome" +
-                           "Email = @Email " +
-                           ",CPF =@CPF " +
+                           ",Email = @Email " +
                            ",Telefone=@Telefone" +
                            " WHERE Id=@Id ";
 
@@ -92,7 +88,13 @@ namespace Cadastro.Infra.Repositorio
             {
 
 
-                con.Execute(sql, pessoa);
+                con.Execute(sql, 
+                new {
+                    Id = pessoa.Id,
+                    Nome = pessoa.Nome,
+                    Email = pessoa.Email.Endereco,
+                    Telefone = pessoa.Telefone
+                });
             }
         }
 

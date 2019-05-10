@@ -54,14 +54,14 @@ namespace Cadastro.Dominio.Comandos.Manipuladores
             _pessoaRepositorio.Salvar(pessoa);
 
 
-            // - 5 RETORNAR O COMANDO RESULTADO APROPRIADO
+            // - 5 Retornar o comande resulte.
             return new RegistroPessoaResultadoComando(pessoa.Id, pessoa.Nome);
 
         }
 
         public IResultadoComando manipulador(EditarPessoaComando comando)
         {
-            //1 Recuperar Cadastro
+            //1 - Recuperar Cadastro
             var pessoa = _pessoaRepositorio.BuscarPorId(comando.Id);
 
             //2 - Caso cliente não existe
@@ -69,34 +69,37 @@ namespace Cadastro.Dominio.Comandos.Manipuladores
             if(pessoa == null)
             {
                 AddNotification("Pessoa", "Cadastro não encontrado");
+                return null;
                 
             }
 
+
+
+
+            //4 - Atualizar as entidade 
+
+
             
-            //3  - Declaras VOs
-            var email = new Email(
-                comando.EnderecoEmail);
-
-            var documento = new Documento(
-               comando.Documento);
-
-            //4 Atualizar as entidade 
-
-
-            var update = new Pessoa(
-                comando.Nome,
-                email,
-                documento,
-                comando.Telefone);
+            var email = new Email(comando.EnderecoEmail);
             pessoa.Update(comando.Nome, email, comando.Telefone);
 
 
-            //5 Persistir no banco
+
+
+            // - 5 Adicionar Notificações
+            AddNotifications(email.Notifications);
+            if (!IsValid())
+                return null;
+
+            // - 6  Persistir no banco
 
             if (IsValid())
             {
                 _pessoaRepositorio.Editar(pessoa);
             }
+
+
+            // - 7 Retornar o comande resulte.
 
             return new RegistroPessoaResultadoComando(pessoa.Id, pessoa.Nome);
 

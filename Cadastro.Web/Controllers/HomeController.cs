@@ -51,7 +51,7 @@ namespace Cadastro.Web.Controllers
             {
                 foreach (var n in _registroPessoa.Notifications)
                 {
-                    ViewBag.Erros += n.Message;
+                     ModelState.AddModelError("",n.Message);
                 }
                 return View(pessoa);
             }
@@ -59,14 +59,32 @@ namespace Cadastro.Web.Controllers
         }
         public ActionResult Edit(Guid id)
         {
-            
-            return View(_repositorioPessoa.BuscarPorId(id));
+            var pessoa = _repositorioPessoa.BuscarPorId(id);
+            var input = new EditarPessoaComando
+            {
+                EnderecoEmail = pessoa.Email.Endereco,
+                Id = pessoa.Id,
+                Nome = pessoa.Nome,
+                Telefone = pessoa.Telefone
+            };
+            return View(input);
 
         }
         [HttpPost]
         public ActionResult Edit(EditarPessoaComando pessoa)
         {
-           _registroPessoa.manipulador(pessoa);
+           
+            var notificacoes = (RegistroPessoaResultadoComando)_registroPessoa.manipulador(pessoa);
+
+            if (_registroPessoa.Notifications.Count > 0)
+            {
+                foreach (var n in _registroPessoa.Notifications)
+                {
+                    ViewBag.Erros += n.Message;
+                }
+                return View(pessoa);
+            }
+
             return RedirectToAction("Index");
         }
 

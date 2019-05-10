@@ -14,7 +14,7 @@ namespace Cadastro.Dominio.ObjetoDeValor
             if (numero.Length != 11 && numero.Length != 14)
                 AddNotification("Documento", "Numero inválido");
             if (numero.Length != 11 && !IsCpf(numero))
-                AddNotification("Dodcumento", "CPF inválido");
+                AddNotification("Documento", "CPF inválido");
 
 
         }
